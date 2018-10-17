@@ -9,6 +9,14 @@ define todo = Character("TODO:",color="#ff0000",what_color="#ff0000",what_prefix
 init python:
     went_to_expo = False
     saw_ai_intro = False
+    saw_maze_rooms = [False,False,False,False,False,False,False]
+    maze_redcount=0
+    maze_greencount=0
+    maze_bluecount=0
+    maze_yellowcount=0
+    maze_magentacount=0
+    maze_lightbluecount=0
+    maze_blackcount=0
     def ai_say(what, redness=0):
         green=min(1.0, 2-(redness*2))
         green=green*255
@@ -107,8 +115,203 @@ label go_to_city_alone:
 label stay_home_investigate:
     "I start looking for things that can help me here, and I reach the mayor of THE CITY."
     todo "Port prose over from original project!"
+    jump maze_entrance
+
+
+label maze_entrance:
+    "We are in a green room, and a single green corridor is leading out of it."
+    "Going through it, we are in a green room, with a light-blue and yellow exit."
+    menu:
+        "Where should I go?"
+        "Light-blue.":
+            call maze_lightbluepath
+            jump maze_r1
+        "Yellow.":
+            call maze_yellowpath
+            jump maze_r2
+
+label maze_redpath:
+    $ maze_redcount+=1
+    if maze_redcount==1:
+        "We are going along the red path."
+        c "Some info about this color."
+    elif maze_redcount==2:
+        c "Some more info about this color."
+    elif maze_redcount==3:
+        c "Yet some more info about this color."
+    elif maze_redcount==4:
+        c "Final info about this color. That's all I know."
+    return
+label maze_greenpath:
+    $ maze_greencount+=1
+    if maze_greencount==1:
+        "We are going along the green path."
+        c "Some info about this color."
+    elif maze_greencount==2:
+        c "Some more info about this color."
+    elif maze_greencount==3:
+        c "Yet some more info about this color."
+    elif maze_greencount==4:
+        c "Final info about this color. That's all I know."
     return
 
+label maze_bluepath:
+    $ maze_bluecount+=1
+    if maze_bluecount==1:
+        "We are going along the blue path."
+        c "Some info about this color."
+    elif maze_bluecount==2:
+        c "Some more info about this color."
+    elif maze_bluecount==3:
+        c "Yet some more info about this color."
+    elif maze_bluecount==4:
+        c "Final info about this color. That's all I know."
+    return
+
+label maze_magentapath:
+    $ maze_magentacount+=1
+    if maze_magentacount==1:
+        "We are going along the magenta path."
+        c "Some info about this color."
+    elif maze_magentacount==2:
+        c "Some more info about this color."
+    elif maze_magentacount==3:
+        c "Yet some more info about this color."
+    elif maze_magentacount==4:
+        c "Final info about this color. That's all I know."
+    return
+
+label maze_yellowpath:
+    $ maze_yellowcount+=1
+    if maze_yellowcount==1:
+        "We are going along the yellow path."
+        c "Some info about this color."
+    elif maze_yellowcount==2:
+        c "Some more info about this color."
+    elif maze_yellowcount==3:
+        c "Yet some more info about this color."
+    elif maze_yellowcount==4:
+        c "Final info about this color. That's all I know."
+    return
+
+label maze_lightbluepath:
+    $ maze_lightbluecount+=1
+    if maze_lightbluecount==1:
+        "We are going along the light-blue path."
+        c "Some info about this color."
+    elif maze_lightbluecount==2:
+        c "Some more info about this color."
+    elif maze_lightbluecount==3:
+        c "Yet some more info about this color."
+    elif maze_lightbluecount==4:
+        c "Final info about this color. That's all I know."
+    return
+
+label maze_blackpath:
+    $ maze_blackcount+=1
+    if maze_blackcount==1:
+        "We are going along the black path."
+        c "Some info about this color."
+    elif maze_blackcount==2:
+        c "Some more info about this color."
+    elif maze_blackcount==3:
+        c "Yet some more info about this color."
+    elif maze_blackcount==4:
+        c "Final info about this color. That's all I know."
+    return
+
+
+label maze_r1:
+    "We are in a light-blue room. There are light-blue, blue and black exits."
+    menu:
+        "Where should I go?"
+        "Light-blue.":
+            call maze_lightbluepath
+            jump maze_entrance
+        "Blue.":
+            call maze_bluepath
+            jump maze_r5
+        "Black.":
+            call maze_blackpath
+            jump maze_r6
+
+
+label maze_r2:
+    "We are in a yellow room. There are yellow, red and green exits."
+    menu:
+        "Where should I go?"
+        "Yellow.":
+            call maze_yellowpath
+            jump maze_entrance
+        "Red.":
+            call maze_redpath
+            jump maze_r2
+        "Green.":
+            call maze_greenpath
+            jump maze_r6
+
+label maze_r3:
+    "We are in a blue room. There is a blue and a red exit."
+    menu:
+        "Where should I go?"
+        "Blue.":
+            call maze_bluepath
+            jump maze_r5
+        "Red.":
+            jump maze_redfinal
+
+label maze_r4:
+    "We are in a red room. There is a red and a black exit."
+    menu:
+        "Where should I go?"
+        "Red.":
+            call maze_redpath
+            jump maze_r2
+        "Black.":
+            call maze_blackpath
+            jump maze_r5
+
+label maze_r5:
+    "In the middle of the corridor there is a blue room. There are three blue exits marked 'R', 'L' and 'C', as well as a black exit."
+    menu:
+        "Where should I go?"
+        "R.":
+            call maze_bluepath
+            jump maze_r3
+        "L.":
+            call maze_bluepath
+            jump maze_r1
+        "C.":
+            jump maze_bluefinal
+        "Black.":
+            call maze_blackpath
+            jump maze_r4
+
+label maze_r6:
+    "In the middle of the corridor there is a green room. There are two green exits marked 'R' and 'L' and a black exit."
+    menu:
+        "Where should I go?"
+        "R.":
+            jump maze_greenfinal
+        "L.":
+            call maze_greenpath
+            jump maze_r2
+        "Black.":
+            call maze_blackpath
+            jump maze_r1
+
+label maze_redfinal:
+    c "I think we are nearing the target."
+    jump ai_disabled_by_white_room
+label maze_greenfinal:
+    c "I think we are nearing the target."
+    jump ai_disabled_by_white_room
+label maze_bluefinal:
+    c "I think we are nearing the target."
+    jump ai_disabled_by_white_room
+
+label ai_disabled_by_white_room:
+    "We are in a white room."
 
 label ai_consumes_alone:
     "The AI does a thing, and now I can't control myself."
