@@ -16,7 +16,6 @@ def do_render_opengl(dummy):
     space = next(space for space in area.spaces if space.type == 'VIEW_3D')
     space.viewport_shade = 'MATERIAL'
     bpy.ops.render.opengl(animation=True, view_context=True)
-    os.rename('outp0000.png','.'.join(os.path.split(bpy.data.filepath)[-1].split('.')[:-1]+['png']))
     bpy.ops.wm.quit_blender()
 
 bpy.app.handlers.load_post.append(do_render_opengl)

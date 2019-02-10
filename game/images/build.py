@@ -1,8 +1,9 @@
 import os
 import subprocess
 import pygame
+import sys
 root = os.getcwd()
-opengl_render = True # TODO: get from argv
+opengl_render = 'opengl' in sys.argv
 for i in os.walk('.'):
     print('entering',i[0])
     os.chdir(i[0])
@@ -13,11 +14,17 @@ for i in os.walk('.'):
     print('exiting',i[0])
     os.chdir(root)
 
+if not opengl_render:
+    exit()
 pygame.init()
 pygame.display.set_mode((10,10))
 
 for i in os.popen('find').read().split('\n'):
+    if i.endswith('0000.png'):
+        os.rename(i,i.replace('0000.png',''))
+for i in os.popen('find').read().split('\n'):
     if i.endswith('.png'):
+        print(i)
         j=i.split('/')[1:]
         s = pygame.image.load(i)
         d = pygame.Surface(s.get_size(),pygame.SRCALPHA, 32)
