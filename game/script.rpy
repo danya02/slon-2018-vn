@@ -198,7 +198,6 @@ label maze_lightbluepath:
     $ maze_lightbluecount+=1
     if maze_lightbluecount==1:
         "We are going along the light-blue path."
-        c "Some info about this color."
     elif maze_lightbluecount==2:
         c "Some more info about this color."
     elif maze_lightbluecount==3:
@@ -210,14 +209,60 @@ label maze_lightbluepath:
 label maze_blackpath:
     $ maze_blackcount+=1
     if maze_blackcount==1:
-        "We are going along the black path."
-        c "Some info about this color."
+        "The corridor is very dark."
+        "The only thing preventing us from stumbling into walls are the tiny indicator lights here and there on the walls."
+        c "It is pitch black. You are likely to be eaten by a grue."
+        m "W-what?!"
+        c "Oh, just a quote from an old video game, don't worry about it."
+        "He doesn't appear to be too bothered..."
     elif maze_blackcount==2:
-        c "Some more info about this color."
+        m "Hey Simon, why are these corridors so dark?"
+        c "What do you mean?"
+        c "It's not that dark, you can see the walls all right."
+        m "Well, yeah, but all of the other rooms were brightly lit with their own color -- why aren't these?"
+        c "Ah well, these are probably just backup channels."
+        c "You see, the other corridors and rooms are colored according to their purpose, and these ones might not have a defined purpose yet."
+        c "Although..."
+        "He looks at a group of indicator lights intently."
+        c "Actually no, this is live! This is one of the green corridors!"
+        m "So... what does this mean?"
+        "Simon is fiddling with his watch."
+        c "It means ALTAS has deliberately turned off the lights here!"
+        c "That's a huge problem!"
+        m "Is ATLAS trying to stop us this way?"
+        c "Evidently..."
+        c "Ah, nevermind. We can still progress, even with the lights off."
+        c "As they say, it's not very effective."
     elif maze_blackcount==3:
-        c "Yet some more info about this color."
+        "..."
+        "..."
+        "..."
+        # TODO: add fade to black, fade music to silence
+        c "DARK{p=2}DARKER{p=2}YET DARKER{w=3}{nw}"
+        c "THE DARKNESS{w=2} KEEPS GROWING{w=3}{nw}"
+        c "THE SHADOWS{w=2} CUTTING DEEPER{w=3}{nw}"
+        c "PHOTON READINGS{w=2} NEGATIVE{w=3}{nw}"
+        c "THIS NEXT EXPERIMENT{p=2}SEEMS VERY{p=2}VERY{p=2}INTERESTING"
+        c "..."
+        # TODO: add sudden background image, character visual
+        c "What do you think?"
+        m "What are you talking about?!"
+        c "Oh, that's another reference. I thought you knew where this one was from?"
+        m "D-don't do that anymore, that's creepy!"
+        c "Oh, I'm sorry... I just thought this was getting boring."
+        c "Plus, I wouldn't have any other opportunity to use it."
+        "Is he actually having fun?!..."
+
     elif maze_blackcount==4:
-        c "Final info about this color. That's all I know."
+        m "Hey, can't we just turn the lights on?"
+        m "I'm getting tired of these dark corridors with nothing in them."
+        c "I'm sorry, I'm afraid that's impossible."
+        c "One of the designers of this maintenance section thought it would be a good idea to make all the lighting in here depend on ATLAS."
+        c "The idea was, ATLAS was supposed to agree to be maintained, so the lights would have to be on whenever anyone went here, and otherwise off."
+        c "But now that ATLAS is not in an agreeable mood, this is a little bit of a problem."
+        c "Not too much problem, mind you; we can still walk around here fine."
+        c "But it does mean that we will have to be more persuasive when we meet ATLAS again."
+        "I don't like the sound of this..."
     return
 
 
