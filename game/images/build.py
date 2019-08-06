@@ -10,7 +10,14 @@ for i in os.walk('.'):
     for j in i[2]:
         if j.endswith('.blend'):
             print('rendering',j)
-            subprocess.call([f'blender','-P', root+"/render"+("_opengl" if opengl_render else "")+".py", j])
+            if opengl_render:
+                subprocess.call([f'blender','-P', root+"/render"+("_opengl" if opengl_render else "")+".py", j])
+            else:
+                subprocess.call(['blender', '--background', j, '--render-output','//'+j.split('.')[0].split('/')[-1]+'$$TEMP_PART####','--render-frame', '1'])
+                for x in os.listdir('.'):
+                    if '$$' in x:
+                        xnew = x.split('$$')[0]+'.png'
+                        subprocess.call(['mv',x,xnew])
     print('exiting',i[0])
     os.chdir(root)
 
